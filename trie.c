@@ -1,7 +1,9 @@
 # include <stdio.h>
 # include "trie.h"
 # include <string.h>
-#define FROMASCIITOZERO 97
+# define FROMASCIITOZERO 97
+# define SUMOFLETTER 26
+# define WORD 30
 /*
     ASCII:
 A = 65 ... Z = 90
@@ -49,5 +51,26 @@ void printUp(node* trie){
 }
 
 void printDown(node* trie){
+    node* head=trie;
+    char[WORD] word;
+    if ((trie->children)==null)
+    {
+        if((trie->count)!=0){
+            printf("%s  %d",word,trie->count );
 
+        }
+    }
+    
+    for(int i=SUMOFLETTER-1; i>=0; i--){
+        while ((head->children)!=null)
+        {
+                 
+        }
+        
+        head->children[i]
+    }
+    
+}
+void printDownHelper(node* parent,node* Child, char* word ){
+    
 }

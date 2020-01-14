@@ -9,7 +9,7 @@
 A = 65, Z = 90
 a = 97, z = 122
 */
-int main(char arg){
+int main(int argc,char* argv[]){
    node* head= (node*)malloc(sizeof(node));
    head->children=NULL;
    char[WORD] w;
