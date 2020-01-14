@@ -10,7 +10,7 @@ typedef struct node{
 
 void addWord(char*, node*);
 
-node* addLetter(char letter, node* n);
+node* addLetter(char, node*);
 
 void printUp(node*);
 

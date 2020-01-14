@@ -42,12 +42,111 @@ node* addLetter(char letter, node* n){
 
     }
 
-}
+void inorder(node *trie, char *word2print);
+void disorder(node *trie, char *word2print);
 
+char* subString(char *w, int i);
+
+/*
+This method print the 'trie' in ascending alphabet order.
+node:
+letter, count, children [*]
+*/
 void printUp(node* trie){
-
+    if(NULL == trie){
+        print("ERROR, the trie is null !\n");
+        break;
+    }
+    else{
+        char *word2print = (char*)malloc(sizeof(char)*50);
+        if(NULL = word2print){
+            print("ERROR\n");
+            return;
+        }
+        strcat(word2print, "");
+        void inorder(trie, word2print);
+        free(word2print);
+    }
+      
 }
-
+/*
+This method print the 'trie' in descending alphabet order.
+*/
 void printDown(node* trie){
+     if(NULL == trie){
+        print("ERROR, the trie is null !\n");
+        break;
+    }
+    else{
+        char *word2print = (char*)malloc(sizeof(char)*50);
+        if(NULL = word2print){
+            print("ERROR\n");
+            return;
+        }
+        strcat(word2print, "");
+        void disorder(trie, word2print);
+        free(word2print);
+    }
+      
+}
+////////////////////////////
+//*** private methodes ***//
+////////////////////////////
+
+char* subString(char *w, int i){
+    int length = strlen(w);
+    if(i <= length){
+        int diff = length - i;
+        w[diff] = '\0';
+        return w;
+    }
+    return NULL;
+}
+/*
+ * check what the word that we need to print
+ * 
+ */
+void inorder(node *trie, char *word2print){
+    int numOfChild = strlen(trie->children);
+    if(numOfChild == 0){ // he is a leaf
+        if(trie->count != 0) {
+            printf("%s", word2print);
+        }
+        if(strlen(word2print) > 1)
+            subString(word2print, 1);
+        return;
+    }
+    else{
+        int i = 0;
+        node *n = trie->children[i];
+        while(i<numOfChild){
+            if(n->count == 0){
+                strcat(word2print, n->letter);
+                inorder(n, word2print);
+            }
+            else{
+                printf("%s", word2print);
+                subString(word2print, 1);
+                return;
+            }
+        i++;
+        }
+    }
 
 }
+
+void disorder(node *trie, char *word2print){
+    int numOfChild = strlen(trie->children);
+    if(numOfChild == 0){ // he is a leaf
+        if(trie->count != 0) {
+            printf("%s", word2print);
+        }
+        if(strlen(word2print) > 1)
+            subString(word2print, 1);
+        return;
+    }
+    else{
+
+    }
+}
+
