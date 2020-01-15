@@ -110,7 +110,7 @@ void inorder(node *trie, char *word2print){
     int numOfChild = strlen(trie->children);
     if(numOfChild == 0){ // he is a leaf
         if(trie->count != 0) {
-            printf("%s", word2print);
+            printf("%s %d\n", word2print, trie->count);
         }
         if(strlen(word2print) > 1)
             subString(word2print, 1);
@@ -118,18 +118,18 @@ void inorder(node *trie, char *word2print){
     }
     else{
         int i = 0;
-        node *n = trie->children[i];
         while(i<numOfChild){
-            if(n->count == 0){
-                strcat(word2print, n->letter);
-                inorder(n, word2print);
+            node *n = trie->children[i];
+            strcat(word2print, n->letter);
+            if(n->count != 0){
+                printf("%s %d\n", word2print, n->count); 
             }
-            else{
-                printf("%s", word2print);
-                subString(word2print, 1);
-                return;
-            }
-        i++;
+            if(strlen(n->children) > 0){inorder(n, word2print);}
+            subString(word2print, 1);
+            i++;
+        }
+        if(i == numOfChild){
+            return;
         }
     }
 
