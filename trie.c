@@ -1,7 +1,7 @@
 # include <stdio.h>
 # include "trie.h"
 # include <string.h>
-#define FROMASCIITOZERO 97
+# define FROMASCIITOZERO 97
 /*
     ASCII:
 A = 65 ... Z = 90
@@ -30,6 +30,10 @@ node* addLetter(char letter, node* n){
     if(n->children[letter-FROMASCIITOZERO]==NULL){
         //make a new node.
         node* add=(node*)malloc(sizeof(node));
+        if(NULL == add){
+            printf("ERROR\n");
+            return NULL;
+        }
         //insert to the new node.
         add->letter=letter;
         add->count=0;
@@ -37,6 +41,10 @@ node* addLetter(char letter, node* n){
         //insert the new node to the parent
         &(n->children[letter-FROMASCIITOZERO])= add;
         return add;
+
+        /*
+        need to :=> free(add);
+        */
     }
     else return &(n->children[letter-FROMASCIITOZERO]);
 
@@ -51,42 +59,24 @@ This method print the 'trie' in ascending alphabet order.
 node:
 letter, count, children [*]
 */
-void printUp(node* trie){
+void printUp(node* trie, char* word2print){
     if(NULL == trie){
         print("ERROR, the trie is null !\n");
-        break;
+        return;
     }
-    else{
-        char *word2print = (char*)malloc(sizeof(char)*50);
-        if(NULL = word2print){
-            print("ERROR\n");
-            return;
-        }
-        strcat(word2print, "");
+    else
         void inorder(trie, word2print);
-        free(word2print);
-    }
-      
 }
 /*
 This method print the 'trie' in descending alphabet order.
 */
-void printDown(node* trie){
+void printDown(node* trie, char* word2print){
      if(NULL == trie){
         print("ERROR, the trie is null !\n");
-        break;
+        return;
     }
-    else{
-        char *word2print = (char*)malloc(sizeof(char)*50);
-        if(NULL = word2print){
-            print("ERROR\n");
-            return;
-        }
-        strcat(word2print, "");
+    else
         void disorder(trie, word2print);
-        free(word2print);
-    }
-      
 }
 ////////////////////////////
 //*** private methodes ***//
@@ -120,6 +110,9 @@ void inorder(node *trie, char *word2print){
     else{
         int i = 0;
         while(i<numOfChild){ // while he has a children, we need to go over them
+            if(strlen(word2print) ){
+
+            }
             node *n = trie->children[i];
             strcat(word2print, n->letter); // attach the letter to word2print
             if(n->count != 0){

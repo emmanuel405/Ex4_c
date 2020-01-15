@@ -12,6 +12,6 @@ void addWord(char*, node*);
 
 node* addLetter(char, node*);
 
-void printUp(node*);
+void printUp(node*, char*);
 
-void printDown(node*);
+void printDown(node*, char*);

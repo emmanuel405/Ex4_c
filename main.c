@@ -10,7 +10,11 @@ A = 65, Z = 90
 a = 97, z = 122
 */
 int main(char arg){
-  node* head= (node*)malloc(sizeof(node));
+  node* head = (node*)malloc(sizeof(node));
+  if(NULL == head){
+    printf("ERROR\n");
+    return -1;
+  }
   head->children=NULL;
   char[WORD] w;
   int i=0;
@@ -34,7 +38,27 @@ int main(char arg){
          
     }
   }
-  char[] word = "";
-  printf("write your word here: ");
-  scanf("%s", word);
+char[] word = "";
+printf("write your word here: ");
+scanf("%s", word);
+
+
+char *word2print = (char*)malloc(sizeof(char)*10);
+if(NULL == word2print){
+  print("ERROR\n");
+  return;
+}
+strcat(word2print, "");
+
+/*
+**************************************************
+we need to check what is the input and print בהתאם
+*/
+void printDown(node* head, char* word2print);
+
+void printUp(node* trie, char* word2print);
+  
+free(word2print);
+free(head);
+return 0;
 }
