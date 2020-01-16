@@ -13,12 +13,16 @@ void addWord(char*, node*);
 
 node* addLetter(char, node*);
 
-void printUp(node*);
+void printUp(node*, char*);
 
-void printDown(node*);
+
+//void printDown(node*);
 
 int isALeaf(node* n);
 
 void printDownHelper(node* child, char* word, int index );
 
 void freeNodesAndPrint(node* n, char* word, int index);
+
+void printDown(node*, char*);
+
