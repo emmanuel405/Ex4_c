@@ -1,3 +1,6 @@
+# ifndef TIMES
+# define TIMES
+
 # define NUM_LETTERS 26
 
 typedef enum {FALSE = 0, TRUE = 1} boolean;
@@ -15,7 +18,6 @@ node* addLetter(char, node*);
 
 int printUp(node*, char*);
 
-
 int isALeaf(node* n);
 
 void printDownHelper(node* child, char* word, int index);
@@ -24,3 +26,4 @@ void freeNodesAndPrint(node* n, char* word, int index);
 
 int printDown(node*, char*);
 
+# endif
