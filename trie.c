@@ -30,15 +30,15 @@ the method recived a letter and node* and insert this letter to children if not 
 and return node* to the new chidren. else return node* to the exist children.
 */ 
 node* addLetter(char letter, node* n){
+    //make a new node.
+    node* add=(node*)malloc(sizeof(node));
+    if(NULL == add){
+        printf("ERROR\n");
+        return NULL;
+    }
     //if the letter not exist yet.
     if(n->children[letter-FROMASCIITOZERO]==NULL){
-        //printf("%c ", letter);
-        //make a new node.
-        node* add=(node*)malloc(sizeof(node));
-        if(NULL == add){
-            printf("ERROR\n");
-            return NULL;
-        }
+        //printf("%c ", letter);        
         //insert to the new node.
         add->letter=letter;
         add->count=0;
@@ -57,11 +57,11 @@ node* addLetter(char letter, node* n){
         //printf("%c ", letter);
         return (n->children[letter-FROMASCIITOZERO]);
     }
-
+    free(add);
 }
 
-void inorder(node *trie, char *word2print);
-void disorder(node *trie, char *word2print);
+int inorder(node *trie, char *word2print);
+int disorder(node *trie, char *word2print);
 char* subString(char *w, int i);
 
 /*
@@ -69,25 +69,24 @@ This method print the 'trie' in ascending alphabet order.
 node:
 letter, count, children [*]
 */
-
-void printUp(node* trie, char* word2print){
+int printUp(node* trie, char* word2print){
     if(NULL == trie){
-        print("ERROR, the trie is null !\n");
-        return;
+        printf("ERROR, the trie is null !\n");
+        return -1;
     }
     else
-        void inorder(trie, word2print);
+        inorder(trie, &word2print);
 }
 /*
 This method print the 'trie' in descending alphabet order.
 */
-void printDown(node* trie, char* word2print){
+int printDown(node* trie, char* word2print){
      if(NULL == trie){
-        print("ERROR, the trie is null !\n");
-        return;
+        printf("ERROR, the trie is null !\n");
+        return -1;
     }
     else
-        void disorder(trie, word2print);
+        disorder(trie, &word2print);
 }
 ////////////////////////////
 //*** private methodes ***//
@@ -108,15 +107,15 @@ char* subString(char *w, int i){
 /*
  * check what the word that we need to print
  */
-void inorder(node *trie, char *word2print){
+int inorder(node *trie, char *word2print){
     int numOfChild = strlen(trie->children);
     if(numOfChild == 0){ // he is a leaf
         if(trie->count != 0) {
-            printf("%s %d\n", word2print, trie->count); // print the word & num how many time it's writted
+            printf("%s %ld\n", word2print, trie->count); // print the word & num how many time it's writted
         }
         if(strlen(word2print) > 1)
             subString(word2print, 1);
-        return;
+        return 0;
     }
     else{
         int i = 0;
@@ -127,14 +126,14 @@ void inorder(node *trie, char *word2print){
             node *n = trie->children[i];
             strcat(word2print, n->letter); // attach the letter to word2print
             if(n->count != 0){
-                printf("%s %d\n", word2print, n->count); 
+                printf("%s %ld\n", word2print, n->count); 
             }
             if(strlen(n->children) > 0){inorder(n, word2print);} // rekursia
             subString(word2print, 1);
             i++;
         }
         if(i == numOfChild){ // if we pass over all child, we can to return this father
-            return;
+            return 0;
         }
     }
 }
@@ -198,7 +197,7 @@ void inorder(node *trie, char *word2print){
 /*
  * check what the word that we need to print
  */
-void disorder(node *trie, char *word2print){
+int disorder(node *trie, char *word2print){
     int numOfChild = strlen(trie->children);
     if(numOfChild == 0){ // he is a leaf
         if(trie->count != 0) {
@@ -206,7 +205,7 @@ void disorder(node *trie, char *word2print){
         }
         if(strlen(word2print) > 1)
             subString(word2print, 1);
-        return;
+        return 0;
     }
     else{
         int i = (numOfChild-1);
@@ -221,7 +220,7 @@ void disorder(node *trie, char *word2print){
             i--;
         }
         if(i == -1){ // if we pass over all child, we can to return this father
-            return;
+            return 0;
         }
     }
 }
