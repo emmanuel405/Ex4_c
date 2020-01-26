@@ -26,6 +26,6 @@ void printDownHelper(node* child, char* word, int index );
 
 void freeNodesAndPrint(node* n, char* word, int index);
 
-int printDown(node*, char*);
+void printDown(node*, char*);
 
 # endif
