@@ -139,25 +139,65 @@ void inorder(node *trie, char *word2print){
     }
 }
 // int isALeaf(node* n){
-//     //printf("i was hear");
+//     //printf("\nisALeaf");
 //     if(n==NULL)
 //         return FALSE;
-//         //printf("i was hear");
+//     //printf("\nisALeaf");
 //     for(int i=0; i<NUM_LETTERS; i++){
-//         if(n->children[i]!=NULL)
+//         if((n->children[i])!=NULL)
 //             return FALSE;
 //     }
 //     return TRUE;
 // }
+// void printUp(node* trie, char* word){
+// int index=0;
+// node* head=trie;
+// printUpHelper(head, word,index );
+// }
+// void printUpHelper(node* child, char* word, int index ){
+//     //to print from a to z
+//     for(int i=0; i>NUM_LETTERS; i++){
+//         //one more letter 
+//         if((child->children[i])!=NULL)
+//         {
+//             //add the letter to the word
+//             word[index]= child->children[i]->letter;
+//             //the index of the next letter of the word
+//             ++index;
+//             //thats mean word
+//             if(child->count!=0)
+//                 //print the word
+//                 printf("%s  %ld\n", word, child->count );
+//             printUpHelper(child->children[i],word, index );
+//         }
+//     }
+//     if(isALeaf(child)){
+//         //its the head after print all
+//         if(child->parent==NULL)
+//             return;
+//         if(child->count!=0)
+//             //print the word
+//             printf("%s  %ld\n", word, child->count );
+//         --index;
+//         word[index]=0;
+//         node* temp=NULL;
+//         char letter=(child->letter);
+//         temp=child->parent;
+//         free(child);
+//         (temp->children[letter-FROMASCIITOZERO])=NULL;
+//         printUpHelper(child,word, index );   
+//     }
+// }
 // void printDown(node* trie){
+//      //printf("\nprintDown");
 //     node* head=trie;
 //     int index=0;
 //     char word[WORD];
-//     printf("\ni was hear" );
+//     //printf("\nprintDown");
 //     printDownHelper(head, word, index);    
 // }
 // void printDownHelper(node* child, char* word, int index ){
-//     //printf("%s ", word );
+//     //printf("\nprintDownHelper " );
 //     if (isALeaf(child))
 //     {
 //         freeNodesAndPrint(child, word, index);
@@ -165,24 +205,26 @@ void inorder(node *trie, char *word2print){
 //         return;
         
 //     }
-//     for(int i=SUMOFLETTER-1; i>=0; i--){
+//     for(int i=NUM_LETTERS-1; i>=0; i--){
 //         if((child->children[i])!=NULL)
 //         {
 //             word[index]= child->children[i]->letter;
-//             index++;
-//             //printf("%s ", word );
-//             printDownHelper(child->children[i],&word[index], index );
+//             ++index;
+//             //printf("\n%s ", word );
+//             printDownHelper(child->children[i],word, index );
 //         }
 //     }
 // }
 // void freeNodesAndPrint(node* n, char* word, int index){
 //     node* temp=NULL;
-//     //printf("%s ", word);
+//     //printf("\nfreeNodesAndPrint");
 //     if(isALeaf(n)){
+//         if(n->parent==NULL)
+//             return;
+//         word[index]=0;
+//         --index;
 //         if((n->count)!=0){
-//             printf("%s  %ld", word, n->count );
-//             word[index]=0;
-//             index--;
+//             printf("%s  %ld\n", word, n->count );
 //         }
 //         char letter=(n->letter);
 //         temp=n->parent;
@@ -193,6 +235,8 @@ void inorder(node *trie, char *word2print){
 //     else 
 //         printDownHelper(n,word,index);
 //         //printf("%s ", word);
+
+// }
 
 
 /*

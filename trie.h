@@ -20,6 +20,8 @@ void printUp(node*, char*);
 
 int isALeaf(node* n);
 
+void printUpHelper(node* child, char* word, int index );
+
 void printDownHelper(node* child, char* word, int index );
 
 void freeNodesAndPrint(node* n, char* word, int index);
