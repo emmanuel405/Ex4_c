@@ -8,14 +8,15 @@
 # define TOLOWERCASE 32
 
 int main(int argc, char* argv[]){
-  int lengthMaxWord = 0;
+  //int lengthMaxWord = 0;
 
   node* head= (node*)malloc(sizeof(node));
   if(NULL == head){
     printf("ERROR\n");
     return -1;
   }
-  (head->parent) = NULL;
+  head->parent = NULL;
+  head->count=0;
   for(int i=0; i<NUM_LETTERS; i++)
        (head->children[i])=NULL;
   char* word2print = (char*)malloc(sizeof(char)*WORD);

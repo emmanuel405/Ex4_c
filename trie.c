@@ -79,25 +79,24 @@ void printUpHelper(node* child, char* word, int index ){
             word[index]= child->children[i]->letter;
             //the index of the next letter of the word
             ++index;
-            
-            
             printUpHelper(child->children[i],word, index );
         }
     }
     if(isALeaf(child)){
+      //its the head after print all
       if(child->parent==NULL){
          return;
       }
-    //its the head after print all
     
-    --index;
-    word[index]=0;
-    node* temp=NULL;
-    char letter=(child->letter);
-    temp=child->parent;
-    free(child);
-    (temp->children[letter-FROMASCIITOZERO])=NULL;
-    printUpHelper(temp,word, index );   
+    
+        --index;
+        word[index]=0;
+        node* temp=NULL;
+        char letter=(child->letter);
+        temp=child->parent;
+        free(child);
+        (temp->children[letter-FROMASCIITOZERO])=NULL;
+        printUpHelper(temp,word, index );   
     }
     
 }
