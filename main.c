@@ -46,46 +46,21 @@ int main(int argc, char* argv[]){
         ++i;
       }
       else if(c==' ' || c==' ' || c=='.' || c=='\n' || c=='\r' || c==EOF){
-  printf("4\n");
-        
+         
           addWord(word2print,head);
           bzero(word2print, strlen(word2print));
           i=0;
       }
     }
   }
-  if(*argv[1] == 'r'){
+  bzero(word2print,strlen(word2print));
+  if(argc==2 && *argv[1] == 'r'){
     printDown(head, word2print);
-    printf("\nprint1 - %s\n", argv[1]);
   }
   else{
     printUp(head, word2print);
-    printf("\nprint2 - %s\n", argv[1]);
   }  
   free(word2print);
   free(head);
   return 0;
 }
-
-//   head->children=NULL;
-//   char[WORD] w;
-//   int i=0;
-//   char c=1;
-//   while(c!=EOF){
-//     if(scanf("%c", c)==1){
-//        if (c>='a' && c<='z')
-//        {
-//          w[i]=c;
-//          i++; 
-//        }
-//        else if(c>='A' && c<='Z'){
-//            w[i]=c+TOLOWERCASE;
-//            i++;
-//        }
-//        else if(c==' ' || c=='.' || c=='\n' || c=='\r' || c==EOF){
-//            addWord(w,head);
-//            bzero(w,strlen(w));
-//            i=0;
-//        }         
-//     }
-//   }
