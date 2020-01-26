@@ -16,7 +16,7 @@ void addWord(char*, node*);
 
 node* addLetter(char, node*);
 
-int printUp(node*, char*);
+void printUp(node*, char*);
 
 int isALeaf(node* n);
 
