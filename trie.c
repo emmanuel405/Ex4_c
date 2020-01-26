@@ -30,15 +30,15 @@ the method recived a letter and node* and insert this letter to children if not 
 and return node* to the new chidren. else return node* to the exist children.
 */ 
 node* addLetter(char letter, node* n){
+    //make a new node.
+    node* add=(node*)malloc(sizeof(node));
+    if(NULL == add){
+        printf("ERROR\n");
+        return NULL;
+    }
     //if the letter not exist yet.
     if(n->children[letter-FROMASCIITOZERO]==NULL){
-        //printf("%c ", letter);
-        //make a new node.
-        node* add=(node*)malloc(sizeof(node));
-        if(NULL == add){
-            printf("ERROR\n");
-            return NULL;
-        }
+        //printf("%c ", letter);        
         //insert to the new node.
         add->letter=letter;
         add->count=0;
@@ -57,11 +57,11 @@ node* addLetter(char letter, node* n){
         //printf("%c ", letter);
         return (n->children[letter-FROMASCIITOZERO]);
     }
-
+    free(add);
 }
 
-void inorder(node *trie, char *word2print);
-void disorder(node *trie, char *word2print);
+int inorder(node *trie, char *word2print);
+int disorder(node *trie, char *word2print);
 char* subString(char *w, int i);
 
 /*
@@ -69,25 +69,24 @@ This method print the 'trie' in ascending alphabet order.
 node:
 letter, count, children [*]
 */
-
-void printUp(node* trie, char* word2print){
+int printUp(node* trie, char* word2print){
     if(NULL == trie){
-        print("ERROR, the trie is null !\n");
-        return;
+        printf("ERROR, the trie is null !\n");
+        return -1;
     }
     else
-        void inorder(trie, word2print);
+        inorder(trie, &word2print);
 }
 /*
 This method print the 'trie' in descending alphabet order.
 */
-void printDown(node* trie, char* word2print){
+int printDown(node* trie, char* word2print){
      if(NULL == trie){
-        print("ERROR, the trie is null !\n");
-        return;
+        printf("ERROR, the trie is null !\n");
+        return -1;
     }
     else
-        void disorder(trie, word2print);
+        disorder(trie, &word2print);
 }
 ////////////////////////////
 //*** private methodes ***//
@@ -108,36 +107,70 @@ char* subString(char *w, int i){
 /*
  * check what the word that we need to print
  */
-void inorder(node *trie, char *word2print){
-    int numOfChild = strlen(trie->children);
-    if(numOfChild == 0){ // he is a leaf
+int inorder(node *trie, char *word2print){
+    if(NULL == trie->children){ // he is a leaf
         if(trie->count != 0) {
-            printf("%s %d\n", word2print, trie->count); // print the word & num how many time it's writted
+            printf("%s -> %ld\n", word2print, trie->count); // print the word & num how many time it's writted
         }
-        if(strlen(word2print) > 1)
+        if(strlen(word2print) >= 1)
             subString(word2print, 1);
-        return;
+        return 0;
     }
     else{
-        int i = 0;
-        while(i<numOfChild){ // while he has a children, we need to go over them
-            if(strlen(word2print) ){
-
-            }
+        for(int i = 0; trie->children[i] != NULL; i++){ // while he has a children, we need to go over them
             node *n = trie->children[i];
-            strcat(word2print, n->letter); // attach the letter to word2print
+            char lettre = n->letter;
+            strcat(word2print, lettre); // attach the lettre to word2print
             if(n->count != 0){
-                printf("%s %d\n", word2print, n->count); 
+                printf("%s %ld\n", word2print, n->count); 
             }
-            if(strlen(n->children) > 0){inorder(n, word2print);} // rekursia
-            subString(word2print, 1);
-            i++;
+            inorder(n, word2print); // rekursia  
         }
-        if(i == numOfChild){ // if we pass over all child, we can to return this father
-            return;
-        }
+        if(strlen(word2print) >= 1) {subString(word2print, 1);}
+        return 0;
     }
 }
+
+int numOfChildren(node*);
+/*
+ * check what the word that we need to print
+ */
+int disorder(node *trie, char *word2print){
+    if(NULL == trie) return NULL;
+    if(NULL == trie->children){ // he is a leaf
+        if(trie->count != 0) {
+            printf("%s -> %ld\n", word2print, trie->count); // print the word & num how many time it's writted
+        }
+        if(strlen(word2print) >= 1)
+            subString(word2print, 1);
+        return 0;
+    }
+    else{
+        for(int i = numOfChildren(trie); i > -1; i--){ // we need to go over all children
+            node *n = trie->children[i];
+            char lettre = n->letter;
+            strcat(word2print, lettre); // attach the letter to word2print
+            if(n->count != 0){
+                printf("%s %ld\n", word2print, n->count); 
+            }
+            disorder(n, word2print); // rekursia 
+        }
+        if(strlen(word2print) >= 1) {subString(word2print, 1);}
+        return 0;
+    }
+}
+int numOfChildren(node* trie){
+    if(NULL == trie->children) return 0;
+    int number_chilren = 0;
+    for (int i=0; trie->children[i] != NULL; i++){
+        number_chilren++;
+    }
+    return number_chilren;
+}
+
+
+///////////*****************************************************************************///////////
+
 // int isALeaf(node* n){
 //     //printf("\nisALeaf");
 //     if(n==NULL)
@@ -236,6 +269,7 @@ void inorder(node *trie, char *word2print){
 //         printDownHelper(n,word,index);
 //         //printf("%s ", word);
 
+
 // }
 
 
@@ -269,4 +303,5 @@ void disorder(node *trie, char *word2print){
         }
     }
 }
+
 
