@@ -4,11 +4,12 @@
 # include <strings.h>
 # include <stdlib.h>
 
-# define WORD 100
+# define WORD 50
 # define TOLOWERCASE 32
 
 int main(int argc, char* argv[]){
   int lengthMaxWord = 0;
+
   node* head= (node*)malloc(sizeof(node));
   if(NULL == head){
     printf("ERROR\n");
@@ -17,52 +18,53 @@ int main(int argc, char* argv[]){
   (head->parent) = NULL;
   for(int i=0; i<NUM_LETTERS; i++)
        (head->children[i])=NULL;
-  char w[WORD];
-  int i=0;
-  char c=1;
-  while(c!='\n'&& c!='.' && '\r'){
-    if(scanf("%c", &c)==1){
-//        printf("%c ", c);
-        if (c>='a' && c<='z'){
-          w[i]=c;
-          ++i; 
-        }
-        else if(c>='A' && c<='Z'){
-          w[i]=c+TOLOWERCASE;
-          ++i;
-        }
-        else if(c==' ' || c==' ' || c=='.' || c=='\n' || c=='\r' || c==EOF){
-            addWord(w,head);
-            if(strlen(w) > lengthMaxWord) lengthMaxWord = strlen(w);
-//            printf("%s ", w);
-            bzero(w, strlen(w));
-//            printf("I was hear");
-            i=0;
-        }
-    }
-  }
-   // printf("\n%s", argv[1]);
-  if(argc == 2){
-    char* word2print = (char*)malloc(sizeof(char)*lengthMaxWord);
-    if(NULL == word2print){
+  char* word2print = (char*)malloc(sizeof(char)*WORD);
+  if(NULL == word2print){
       printf("ERROR !\n");
       return -1;
     }
     strcpy(word2print, "");
-
-    if(argv[1]=='r'){
-      printDown(head, word2print);
-      printf("\nprint1 - %s\n", argv[1]);
+  int i=0;
+  int times=1; // for realloc 'word2print' I want to increase it to WORD value
+  char c=1;
+  while(c!='\n' && c!='.' && '\r'){
+    if(scanf("%c", &c) == 1){
+      if(i == times*(WORD-1)){
+        times++;
+        char* word2print = realloc(word2print, sizeof(char)*(times*WORD));
+        if(NULL == word2print){
+          printf("ERROR !\n");
+          return -1;
+        }
+      }
+      if (c>='a' && c<='z'){
+        word2print[i]=c;
+        ++i; 
+      }
+      else if(c>='A' && c<='Z'){
+        word2print[i]=c+TOLOWERCASE;
+        ++i;
+      }
+      else if(c==' ' || c==' ' || c=='.' || c=='\n' || c=='\r' || c==EOF){
+  printf("4\n");
+        
+          addWord(word2print,head);
+          bzero(word2print, strlen(word2print));
+          i=0;
+      }
     }
-    else{
-      printUp(head, word2print);
-      printf("\nprint2 - %s\n", argv[1]);
-    }  
-    free(word2print);
-    return 0;
   }
-free(head);
-return 0;
+  if(*argv[1] == 'r'){
+    printDown(head, word2print);
+    printf("\nprint1 - %s\n", argv[1]);
+  }
+  else{
+    printUp(head, word2print);
+    printf("\nprint2 - %s\n", argv[1]);
+  }  
+  free(word2print);
+  free(head);
+  return 0;
 }
 
 //   head->children=NULL;
