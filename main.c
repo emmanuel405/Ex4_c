@@ -27,14 +27,11 @@ int main(int argc, char* argv[]){
       printf("ERROR !\n");
       return 1;
     }
-    strcpy(word2print, "");
+  strcpy(word2print, "");
   int i=0;
   int times=1; // for realloc 'word2print' I want to increase it to WORD value
   char c=1;
-  //while(c!='\n' && c!= '\r'){
-    // while(c!=EOF){
-    //   printf("%d\n", c);
-    while(scanf("%c",&c) != EOF){
+  while(scanf("%c",&c) != EOF){
       if(i == times*(WORD-1)){
         times++;
         char* word2print = realloc(word2print, sizeof(char)*(times*WORD));
@@ -57,8 +54,8 @@ int main(int argc, char* argv[]){
           bzero(word2print, strlen(word2print));
           i=0;
       }
-    }
- // }
+  }
+ 
   bzero(word2print,strlen(word2print));
   if(argc==2 && *argv[1] == 'r'){
     printDown(head, word2print);
