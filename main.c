@@ -8,12 +8,15 @@
 # define TOLOWERCASE 32
 
 int main(int argc, char* argv[]){
-  //int lengthMaxWord = 0;
 
+  if(argc>1 && (*argv[1]!='r' || strlen(argv[1])>1) ){
+    printf("ERROR: Wrong input\n");
+    return 1;
+  }
   node* head= (node*)malloc(sizeof(node));
   if(NULL == head){
     printf("ERROR\n");
-    return -1;
+    return 1;
   }
   head->parent = NULL;
   head->count=0;
@@ -22,7 +25,7 @@ int main(int argc, char* argv[]){
   char* word2print = (char*)malloc(sizeof(char)*WORD);
   if(NULL == word2print){
       printf("ERROR !\n");
-      return -1;
+      return 1;
     }
     strcpy(word2print, "");
   int i=0;
@@ -35,7 +38,7 @@ int main(int argc, char* argv[]){
         char* word2print = realloc(word2print, sizeof(char)*(times*WORD));
         if(NULL == word2print){
           printf("ERROR !\n");
-          return -1;
+          return 1;
         }
       }
       if (c>='a' && c<='z'){
@@ -58,9 +61,8 @@ int main(int argc, char* argv[]){
   if(argc==2 && *argv[1] == 'r'){
     printDown(head, word2print);
   }
-  else{
+  else 
     printUp(head, word2print);
-  }  
   free(word2print);
   free(head);
   return 0;
