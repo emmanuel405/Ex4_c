@@ -34,7 +34,7 @@ int main(int argc, char* argv[]){
   //while(c!='\n' && c!= '\r'){
     // while(c!=EOF){
     //   printf("%d\n", c);
-    while(scanf("%c",&c) != 1){
+    while(scanf("%c",&c) != EOF){
       if(i == times*(WORD-1)){
         times++;
         char* word2print = realloc(word2print, sizeof(char)*(times*WORD));
