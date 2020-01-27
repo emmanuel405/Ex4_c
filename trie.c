@@ -63,42 +63,46 @@ void printUp(node* trie, char* word){
     printUpHelper(head, word,index );
 }
 void printUpHelper(node* child, char* word, int index ){
-
-   //thats mean word
-   if(child->count!=0){
-        //print the word
-        printf("%s  %ld\n", word, child->count );
-        child->count=0;
-    }
-    //to print from a to z
-    for(int i=0; i>NUM_LETTERS; i++){
-        //one more letter 
-        if((child->children[i])!=NULL)
-        {
-            //add the letter to the word
-            word[index]= child->children[i]->letter;
-            //the index of the next letter of the word
-            ++index;
-            printUpHelper(child->children[i],word, index );
-        }
-    }
     if(isALeaf(child)){
-      //its the head after print all
-      if(child->parent==NULL){
-         return;
-      }
-    
-    
+        //its the head after print all
+        if(child->parent==NULL){
+            return;
+        }
+        //thats mean word
+        ifWord(child, word);
         --index;
         word[index]=0;
-        node* temp=NULL;
-        char letter=(child->letter);
-        temp=child->parent;
-        free(child);
-        (temp->children[letter-FROMASCIITOZERO])=NULL;
-        printUpHelper(temp,word, index );   
+        printUpHelper(freeUP(child),word, index );
     }
-    
+    else{
+        int j=0;
+        while(child->children[j]==NULL ){
+            j++;
+        }
+        ifWord(child, word);
+        //add the letter to the word
+        word[index]= child->children[j]->letter;
+        //the index of the next letter of the word
+        ++index;
+        printUpHelper(child->children[j],word, index );
+     }   
+}
+
+node* freeUP(node* n){
+    node* temp=NULL;
+    char letter=(n->letter);
+    temp=n->parent;
+    free(n);
+    (temp->children[letter-FROMASCIITOZERO])=NULL;
+    return temp;       
+}
+void ifWord(node* n, char* word){
+    if(n->count!=0){
+        //print the word
+        printf("%s  %ld\n", word, n->count );
+        //if the program return to this word, so dont print the word again.
+        n->count=0;
+    }
 }
 void printDown(node* trie, char* word){
     node* head=trie;
