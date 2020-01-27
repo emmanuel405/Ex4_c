@@ -32,8 +32,9 @@ int main(int argc, char* argv[]){
   int times=1; // for realloc 'word2print' I want to increase it to WORD value
   char c=1;
   //while(c!='\n' && c!= '\r'){
-    while(c!=EOF){
-    if(scanf("%c", &c) == 1){
+    // while(c!=EOF){
+    //   printf("%d\n", c);
+    while(scanf("%c",&c) != 1){
       if(i == times*(WORD-1)){
         times++;
         char* word2print = realloc(word2print, sizeof(char)*(times*WORD));
@@ -57,7 +58,7 @@ int main(int argc, char* argv[]){
           i=0;
       }
     }
-  }
+ // }
   bzero(word2print,strlen(word2print));
   if(argc==2 && *argv[1] == 'r'){
     printDown(head, word2print);
